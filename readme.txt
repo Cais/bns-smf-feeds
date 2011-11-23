@@ -94,6 +94,12 @@ Once the widget is activated and placed into a widget ready area, there will be 
 Please stay current with your WordPress installation, your active theme, and your plugins.
 
 == Changelog ==
+= 1.7 =
+* released ...
+* confirmed compatible with WordPress 3.3
+* added phpDoc Style documentation
+* added i18n support
+
 = 1.6 =
 * released June 2011
 * confirmed compatible with WordPress version 3.2-beta2-18085
