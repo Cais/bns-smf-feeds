@@ -3,35 +3,50 @@
 Plugin Name: BNS SMF Feeds
 Plugin URI: http://buynowshop.com/plugins/bns-smf-feeds/
 Description: Plugin with multi-widget functionality that builds an SMF Forum RSS feed url by user option choices; and, displays a SMF forum feed.
-Version: 1.6
+Version: 1.7
+Text Domain: bns-smf
 Author: Edward Caissie
 Author URI: http://edwardcaissie.com/
-License: GPL2
+License: GNU General Public License v2
 License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 */
 
-/* Last Updated: June 4, 2011 v1.6 */
-
-/*  Copyright 2009-2011  Edward Caissie  (email : edward.caissie@gmail.com)
-
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License version 2,
-    as published by the Free Software Foundation.
-
-    You may NOT assume that you can use any other version of the GPL.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program; if not, write to the Free Software
-    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-
-    The license for this software can also likely be found here:
-    http://www.gnu.org/licenses/gpl-2.0.html
-*/
+/**
+ * BNS SMF Feeds
+ *
+ * Plugin with multi-widget functionality that builds an SMF Forum RSS feed url
+ * by user option choices; and, displays a SMF forum feed.
+ *
+ * @package     BNS_SMF_Feeds
+ * @link        http://buynowshop.com/plugins/bns-smf-feeds/
+ * @link        https://github.com/Cais/bns-smf-feeds/
+ * @link        http://wordpress.org/extend/plugins/bns-smf-feeds/
+ * @version     1.7
+ * @author      Edward Caissie <edward.caissie@gmail.com>
+ * @copyright   Copyright (c) 2009-2011, Edward Caissie
+ *
+ * This program is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License version 2, as published by the
+ * Free Software Foundation.
+ *
+ * You may NOT assume that you can use any other version of the GPL.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details
+ *
+ * You should have received a copy of the GNU General Public License along with
+ * this program; if not, write to:
+ *
+ *      Free Software Foundation, Inc.
+ *      51 Franklin St, Fifth Floor
+ *      Boston, MA  02110-1301  USA
+ *
+ * The license for this software can also likely be found here:
+ * http://www.gnu.org/licenses/gpl-2.0.html
+ *
+ * Last revised November 23, 2011
+ */
 
 global $wp_version;
 $exit_message = 'BNS SMF Feeds requires WordPress version 2.8 or newer. <a href="http://codex.wordpress.org/Upgrading_WordPress">Please Update!</a>';
