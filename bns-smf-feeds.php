@@ -46,7 +46,21 @@ License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  * http://www.gnu.org/licenses/gpl-2.0.html
  *
  * Last revised November 23, 2011
+ * @todo Add PHPDoc style documentation
  */
+
+/**
+ * BNS SMF Feeds TextDomain
+ * Make plugin text available for translation (i18n)
+ *
+ * @package:    BNS_SMF_Feeds
+ * @since:      1.7
+ *
+ * @internal    Note: Translation files are expected to be found in the plugin root folder / directory.
+ * @internal    `bns-smf` is being used in place of `bns-smf-feeds`
+ */
+load_plugin_textdomain( 'bns-smf' );
+// End: BNS SMF Feeds TextDomain
 
 global $wp_version;
 $exit_message = 'BNS SMF Feeds requires WordPress version 2.8 or newer. <a href="http://codex.wordpress.org/Upgrading_WordPress">Please Update!</a>';
