@@ -162,15 +162,19 @@ function bns_wp_widget_rss_output( $rss, $args = array() ) {
 
         echo '<ul class="bns-smf-feeds">';
         foreach ( $rss->get_items( 0, $limit_count ) as $item ) {
+
             /** @noinspection PhpUndefinedMethodInspection */
             $link = $item->get_link();
             while ( stristr( $link, 'http' ) != $link )
                 $link = substr( $link, 1 );
             $link = esc_url( strip_tags( $link ) );
+
+            /** @noinspection PhpUndefinedMethodInspection */
             $title = esc_attr( strip_tags( $item->get_title() ) );
             if ( empty( $title ) )
                 $title = __( 'Untitled', 'bns-smf' );
 
+            /** @noinspection PhpUndefinedMethodInspection */
             $desc = str_replace( array( "\n", "\r" ), ' ', esc_attr( strip_tags( @html_entity_decode( $item->get_description(), ENT_QUOTES, get_option( 'blog_charset' ) ) ) ) );
             $desc = wp_html_excerpt( $desc, 360 );
             $desc = esc_html( $desc );
