@@ -47,6 +47,7 @@ License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  *
  * Last revised February 20, 2012
  * @todo Review possible issues with cross-browser compatibility - see http://buynowshop.com/plugins/bns-smf-feeds/comment-page-1/#comment-11934
+ * @todo Review if SMF feed offers a "select distinct" option for the feed ... ?
  */
 
 /**
