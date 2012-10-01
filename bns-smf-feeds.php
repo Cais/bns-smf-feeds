@@ -21,7 +21,7 @@ License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  * @link        http://buynowshop.com/plugins/bns-smf-feeds/
  * @link        https://github.com/Cais/bns-smf-feeds/
  * @link        http://wordpress.org/extend/plugins/bns-smf-feeds/
- * @version     1.7.2
+ * @version     1.7.3
  * @author      Edward Caissie <edward.caissie@gmail.com>
  * @copyright   Copyright (c) 2009-2012, Edward Caissie
  *
@@ -45,33 +45,24 @@ License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  * The license for this software can also likely be found here:
  * http://www.gnu.org/licenses/gpl-2.0.html
  *
- * Last revised February 20, 2012
+ * @version 1.8
+ * @date    October 1, 2012
+ * Remove load_textdomain as redundant
+ * Remove unused Author option
  * @todo Review possible issues with cross-browser compatibility - see http://buynowshop.com/plugins/bns-smf-feeds/comment-page-1/#comment-11934
  * @todo Review if SMF feed offers a "select distinct" option for the feed ... ?
+ * @todo Add shortcode
  */
-
-/**
- * BNS SMF Feeds TextDomain
- * Make plugin text available for translation (i18n)
- *
- * @package:    BNS_SMF_Feeds
- * @since:      1.7
- *
- * @internal    Note: Translation files are expected to be found in the plugin root folder / directory.
- * @internal    `bns-smf` is being used in place of `bns-smf-feeds`
- */
-load_plugin_textdomain( 'bns-smf' );
-// End: BNS SMF Feeds TextDomain
 
 /**
  * Check installed WordPress version for compatibility
  *
- * @package     BNS_SMF_Feeds
- * @since       1.0
- * @version     1.7
- * @internal    Version 2.8 being used in reference to `register_widget`
+ * @package BNS_SMF_Feeds
+ * @since   1.0
+ * @internal Version 2.8 being used in reference to `register_widget`
  *
- * Last revised November 23, 2011.
+ * @version 1.7
+ * @date    November 23, 2011.
  * Re-write to be i18n compatible
  * @todo    Check version compatibility after other updates are completed
  */
@@ -95,10 +86,10 @@ add_action( 'widgets_init', 'load_bns_smf_feeds_widget' );
  * Build SimplePie object based on RSS or Atom feed from URL.
  *
  * @package WordPress
- * @since 2.8
+ * @since   2.8
  *
- * @param string $url URL to retrieve feed
- * @return WP_Error|SimplePie WP_Error object on failure or SimplePie object on success
+ * @param   string $url URL to retrieve feed
+ * @return  WP_Error|SimplePie WP_Error object on failure or SimplePie object on success
  */
 function bns_fetch_feed( $url ) {
         global $feed_refresh;
@@ -120,10 +111,12 @@ function bns_fetch_feed( $url ) {
  * Display the RSS entries in a list.
  *
  * @package WordPress
- * @since 2.5.0
- * @param $rss
- * @param array $args
- * @return
+ * @since   2.5.0
+ *
+ * @param   $rss
+ * @param   array $args
+ *
+ * @return  void
  */
 
 function bns_wp_widget_rss_output( $rss, $args = array() ) {
@@ -394,14 +387,6 @@ class BNS_SMF_Feeds_Widget extends WP_Widget {
 
                 <table width="100%">
                     <tr>
-                        <!-- Author details not apparently supported
-                        <td>
-                            <p>
-                                <input class="checkbox" type="checkbox" <?php checked( ( bool ) $instance['show_author'], true ); ?> id="<?php echo $this->get_field_id( 'show_author' ); ?>" name="<?php echo $this->get_field_name( 'show_author' ); ?>" />
-                                <label for="<?php echo $this->get_field_id( 'show_author' ); ?>"><?php _e( 'Display item author?', 'bns-smf' ); ?></label>
-                            </p>
-                        </td>
-                        -->
                         <td>
                             <p>
                                 <input class="checkbox" type="checkbox" <?php checked( ( bool ) $instance['show_date'], true ); ?> id="<?php echo $this->get_field_id( 'show_date' ); ?>" name="<?php echo $this->get_field_name( 'show_date' ); ?>" />
