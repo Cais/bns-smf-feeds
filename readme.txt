@@ -66,6 +66,26 @@ The plugin uses a variation of the WordPress RSS Output that assigns several rss
 = How can I get the RSS feed url? =
 Once the widget is activated and placed into a widget ready area, there will be a standard RSS icon displayed beside the feed title. This icon will have the url anchored to it, simply click on it to subscribe to the feed directly.
 
+= How do I use the shortcode `bns_smf_feeds`; and, does it offer the same options as the widget? =
+Yes, the shortcode does offer the same options as the widget. Here is a list of these options with their defaults:
+
+* title = 'SMF Forum Feed'
+* smf_forum_url = 'http://www.simplemachines.org/community/' (this is an example only not the actual default)
+* smf_feed_type = 'rss2'
+* smf_sub_action = false (false displays news or recent topics; true displays recent posts)
+* smf_boards = '' (defaults to all)
+* smf_categories = '' (defaults all)
+* limit_count = '10'
+* show_date = false
+* show_summary = false
+* blank_window = false
+* feed_refresh = '43200' (value in seconds = 12 hours)
+
+For more information you can read the following codex entries:
+
+* http://codex.wordpress.org/Shortcode (basic usage)
+* http://codex.wordpress.org/Shortcode_API (for the more technically inclined)
+
 == Screenshots ==
 1. The options panel.
 
@@ -101,6 +121,7 @@ Please stay current with your WordPress installation, your active theme, and you
 * remove load_textdomain as redundant (see plugin header)
 * remove unused Author option
 * added shortcode `bns_smf_feeds`
+* update 'readme' with information about the shortcode
 
 = 1.7.2 =
 * confirmed compatible with WordPress 3.4
