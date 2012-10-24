@@ -97,8 +97,10 @@ Please stay current with your WordPress installation, your active theme, and you
 = 1.8 =
 * confirmed compatible with WordPress 3.5
 * minor documentation updates
+* code formatting and clean-up
 * remove load_textdomain as redundant (see plugin header)
-* Remove unused Author option
+* remove unused Author option
+* added shortcode `bns_smf_feeds`
 
 = 1.7.2 =
 * confirmed compatible with WordPress 3.4
