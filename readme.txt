@@ -117,6 +117,7 @@ Please stay current with your WordPress installation, your active theme, and you
 = 1.9 =
 * Release February 2013
 * Added code block termination comments
+* Added documentation header blocks
 * Moved code into class structure
 
 = 1.8 =

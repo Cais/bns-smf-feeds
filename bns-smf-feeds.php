@@ -54,6 +54,7 @@ License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  * @version 1.9
  * @date    February 14, 2013
  * Added code block termination comments
+ * Added documentation header blocks
  * Moved code into class structure
  *
  * @todo Review possible issues with cross-browser compatibility - see http://buynowshop.com/plugins/bns-smf-feeds/comment-page-1/#comment-11934
@@ -62,6 +63,15 @@ License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 
 class BNS_SMF_Feeds_Widget extends WP_Widget {
 
+    /**
+     * Constructor
+     *
+     * @package BNS_SMF_Feeds
+     *
+     * @uses    WP_Widget (class)
+     * @uses    add_action
+     * @uses    add_shortcode
+     */
     function BNS_SMF_Feeds_Widget() {
         /** Widget settings */
         $widget_ops = array( 'classname' => 'bns-smf-feeds', 'description' => __( 'Displays recent feeds from a SMF Forum.', 'bns-smf' ) );
@@ -96,6 +106,26 @@ class BNS_SMF_Feeds_Widget extends WP_Widget {
 
     }
 
+
+    /**
+     * Widget
+     *
+     * @package BNS_SMF_Feeds
+     *
+     * @uses    apply_filters
+     * @uses    esc_attr
+     * @uses    esc_html
+     * @uses    esc_url
+     * @uses    get_description
+     * @uses    get_option
+     * @uses    get_permalink
+     * @uses    get_title
+     * @uses    includes_url
+     * @uses    is_wp_error
+     *
+     * @param   array $args
+     * @param   array $instance
+     */
     function widget( $args, $instance ) {
         global $blank_window;
         extract( $args );
@@ -194,6 +224,16 @@ class BNS_SMF_Feeds_Widget extends WP_Widget {
     } /** End function - widget */
 
 
+    /**
+     * Update
+     *
+     * @package BNS_SMF_Feeds
+     *
+     * @param   array $new_instance
+     * @param   array $old_instance
+     *
+     * @return  array
+     */
     function update( $new_instance, $old_instance ) {
         $instance = $old_instance;
 
@@ -217,6 +257,21 @@ class BNS_SMF_Feeds_Widget extends WP_Widget {
     } /** End function - update */
 
 
+    /**
+     * Form
+     *
+     * @package BNS_SMF_Feeds
+     *
+     * @uses    checked
+     * @uses    get_field_id
+     * @uses    get_field_name
+     * @uses    selected
+     * @uses    wp_parse_args
+     *
+     * @param   array $instance
+     *
+     * @return  string|void
+     */
     function form( $instance ) {
         /** Set up default widget settings */
         $defaults = array(
@@ -468,7 +523,13 @@ class BNS_SMF_Feeds_Widget extends WP_Widget {
     /* ---- */
 
 
-    /** Register Widget */
+    /**
+     * Register Widget
+     *
+     * @package BNS_SMF_Feeds
+     *
+     * @uses    register_widget
+     */
     function load_bns_smf_feeds_widget() {
         register_widget( 'BNS_SMF_Feeds_Widget' );
     } /** End function - register widget */
@@ -486,7 +547,11 @@ class BNS_SMF_Feeds_Widget extends WP_Widget {
      * @uses    the_widget
      * @uses    shortcode_atts
      *
+     * @param   $atts
+     *
      * @internal used with add_shortcode
+     *
+     * @return string
      */
     function BNS_SMF_Feeds_Shortcode( $atts ) {
 
