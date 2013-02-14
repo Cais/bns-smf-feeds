@@ -53,6 +53,7 @@ License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  *
  * @version 1.9
  * @date    February 14, 2013
+ * Added code block termination comments
  * Moved code into class structure
  *
  * @todo Review possible issues with cross-browser compatibility - see http://buynowshop.com/plugins/bns-smf-feeds/comment-page-1/#comment-11934
@@ -84,7 +85,7 @@ class BNS_SMF_Feeds_Widget extends WP_Widget {
         $exit_message = __( 'BNS SMF Feeds requires WordPress version 2.8 or newer. <a href="http://codex.wordpress.org/Upgrading_WordPress">Please Update!</a>', 'bns-smf' );
         if ( version_compare( $wp_version, "2.8", "<" ) ) {
             exit ( $exit_message );
-        }
+        } /** End if - version compare */
 
 
         /** Add Widget */
@@ -127,42 +128,58 @@ class BNS_SMF_Feeds_Widget extends WP_Widget {
             $smf_feed_url .= "board=" . $smf_boards . ";"; /* specify boards */
             $smf_feed_url .= "c=" . $smf_categories . ";"; /* specify categories */
             $smf_feed_url .= "limit=" . $limit_count;
-        }
+        } /** End if - empty smf feed url */
 
         /* ---- taken from ../wp-includes/default-widgets.php ---- */
-        while ( stristr( $smf_feed_url, 'http' ) != $smf_feed_url )
+        while ( stristr( $smf_feed_url, 'http' ) != $smf_feed_url ) {
             $smf_feed_url = substr( $smf_feed_url, 1 );
-        if ( empty( $smf_feed_url ) )
+        } /** End while */
+
+        if ( empty( $smf_feed_url ) ) {
             return;
+        } /** End if - empty smf feed url */
+
         $rss = $this->bns_fetch_feed( $smf_feed_url );
         $title = $instance['title'];
         $desc = '';
         $link = '';
+
         if ( ! is_wp_error( $rss ) ) {
             $desc = esc_attr( strip_tags( @html_entity_decode( $rss->get_description(), ENT_QUOTES, get_option( 'blog_charset' ) ) ) );
-            if ( empty( $title ) )
+
+            if ( empty( $title ) ) {
                 $title = esc_html( strip_tags( $rss->get_title() ) );
+            } /** End if - empty title */
+
             $link = esc_url( strip_tags( $rss->get_permalink() ) );
-            while ( stristr( $link, 'http' ) != $link )
+
+            while ( stristr( $link, 'http' ) != $link ) {
                 $link = substr( $link, 1 );
-        }
-        if ( empty( $title ) )
+            } /** End while */
+        } /** End of - is wp error */
+
+        if ( empty( $title ) ) {
             $title = empty( $desc ) ? __( 'Unknown Feed', 'bns-smf' ) : $desc;
+        } /** End if - empty title */
+
         $title = apply_filters( 'widget_title', $title );
         $smf_feed_url = esc_url( strip_tags( $smf_feed_url ) );
         $icon = includes_url( 'images/rss.png' );
-        if ( $title )
+
+        if ( $title ) {
             $title = "<a class='bns-smf-feeds rsswidget' href='$smf_feed_url' " . ( !$blank_window ? "target=''" : "target='_blank'" ) . " title='" . esc_attr( __( 'Syndicate this content', 'bns-smf' ) ) ."'><img style='background:orange;color:white;border:none;' width='14' height='14' src='$icon' alt='RSS' /></a> <a class='bns-smf-feeds rsswidget' href='$link' " . ( !$blank_window ? "target=''" : "target='_blank'" ) . " title='$desc'>$title</a>";
+        } /** End if - title */
         /* ---- ... and the wheels on the bus go round and round ... ---- */
 
         /** @var $before_widget string - defined by theme */
         echo $before_widget;
 
         /** $title of widget */
-        if ( $title )
+        if ( $title ) {
             /** @var $before_title string - defined by theme */
             /** @var $after_title string - defined by theme */
             echo $before_title . $title . $after_title;
+        } /** End if - title */
 
          /** Display feed from widget settings */
         $this->bns_wp_widget_rss_output( $smf_feed_url, array(
@@ -173,7 +190,8 @@ class BNS_SMF_Feeds_Widget extends WP_Widget {
 
         /** @var $after_widget string - defined by theme */
         echo $after_widget;
-    }
+
+    } /** End function - widget */
 
 
     function update( $new_instance, $old_instance ) {
@@ -196,7 +214,7 @@ class BNS_SMF_Feeds_Widget extends WP_Widget {
 
         return $instance;
 
-    }
+    } /** End function - update */
 
 
     function form( $instance ) {
@@ -286,7 +304,8 @@ class BNS_SMF_Feeds_Widget extends WP_Widget {
             <input id="<?php echo $this->get_field_id( 'feed_refresh' ); ?>" name="<?php echo $this->get_field_name( 'feed_refresh' ); ?>" value="<?php echo $instance['feed_refresh']; ?>" style="width:100%;" />
         </p>
 
-    <?php }
+    <?php
+    } /** End function - form */
 
 
     /* ---- */
@@ -312,12 +331,14 @@ class BNS_SMF_Feeds_Widget extends WP_Widget {
         $feed->set_cache_duration( apply_filters( 'wp_feed_cache_transient_lifetime', $feed_refresh ) );
         $feed->init();
         $feed->handle_content_type();
+
         if ( $feed->error() ) {
             return new WP_Error( 'simplepie-error', $feed->error() );
-        }
+        } /** End if - feed error */
+
         return $feed;
 
-    }
+    } /** End function - bns fetch feed */
 
 
     /* ---- taken from ../wp-includes/default-widgets.php ---- */
@@ -334,6 +355,7 @@ class BNS_SMF_Feeds_Widget extends WP_Widget {
      */
     function bns_wp_widget_rss_output( $rss, $args = array() ) {
         global $blank_window, $limit_count;
+
         if ( is_string( $rss ) ) {
             $rss = $this->bns_fetch_feed( $rss );
         } elseif ( is_array( $rss ) && isset( $rss['url'] ) ) {
@@ -341,14 +363,16 @@ class BNS_SMF_Feeds_Widget extends WP_Widget {
             $rss = $this->bns_fetch_feed( $rss['url'] );
         } elseif ( !is_object( $rss ) ) {
             return;
-        }
+        } /** End if - is string */
 
         if ( is_wp_error( $rss ) ) {
             if ( is_admin() || current_user_can( 'manage_options' ) ) {
                 echo '<p>' . sprintf( __( '<strong>RSS Error</strong>: %s' ), $rss->get_error_message() ) . '</p>';
-            }
+            } /** End if - is admin */
+
             return;
-        }
+
+        } /** End if - is wp error */
 
         $default_args = array( 'show_author' => 0, 'show_date' => 0, 'show_summary' => 0 );
         $args = wp_parse_args( $args, $default_args );
@@ -361,26 +385,33 @@ class BNS_SMF_Feeds_Widget extends WP_Widget {
         /** @var $show_date boolean */
         $show_date     = ( int ) $show_date;
 
-        if ( !$rss->get_item_quantity() ) {
+        if ( ! $rss->get_item_quantity() ) {
             echo '<ul><li>' . __( 'An error has occurred; the feed is probably down. Try again later.', 'bns-smf' ) . '</li></ul>';
             $rss->__destruct();
             unset( $rss );
+
             return;
-        }
+
+        } /** end if - not rss */
 
         echo '<ul class="bns-smf-feeds">';
+
         foreach ( $rss->get_items( 0, $limit_count ) as $item ) {
 
             /** @noinspection PhpUndefinedMethodInspection */
             $link = $item->get_link();
-            while ( stristr( $link, 'http' ) != $link )
+            while ( stristr( $link, 'http' ) != $link ) {
                 $link = substr( $link, 1 );
+            } /** End while */
+
             $link = esc_url( strip_tags( $link ) );
 
             /** @noinspection PhpUndefinedMethodInspection */
             $title = esc_attr( strip_tags( $item->get_title() ) );
-            if ( empty( $title ) )
+
+            if ( empty( $title ) ) {
                 $title = __( 'Untitled', 'bns-smf' );
+            } /** End if - empty title */
 
             /** @noinspection PhpUndefinedMethodInspection */
             $desc = str_replace( array( "\n", "\r" ), ' ', esc_attr( strip_tags( @html_entity_decode( $item->get_description(), ENT_QUOTES, get_option( 'blog_charset' ) ) ) ) );
@@ -391,9 +422,10 @@ class BNS_SMF_Feeds_Widget extends WP_Widget {
                 $summary = "<div class='bns-smf-feeds rssSummary'>$desc</div>";
             } else {
                 $summary = '';
-            }
+            } /** End if - show summary */
 
             $date = '';
+
             if ( $show_date ) {
                 /** @noinspection PhpUndefinedMethodInspection */
                 $date = $item->get_date();
@@ -402,10 +434,12 @@ class BNS_SMF_Feeds_Widget extends WP_Widget {
                         $date = '<br /><span class="bns-smf-feeds rss-date">' . date_i18n( get_option( 'date_format' ), $date_stamp ) . '</span>';
                     else
                         $date = '';
-                }
-            }
+                } /** End if - date */
+
+            } /** End if - show date */
 
             $author = '';
+
             if ( $show_author ) {
                 /** @noinspection PhpUndefinedMethodInspection */
                 $author = $item->get_author();
@@ -413,20 +447,23 @@ class BNS_SMF_Feeds_Widget extends WP_Widget {
                     /** @noinspection PhpUndefinedMethodInspection */
                     $author = $author->get_name();
                     $author = ' <cite>' . esc_html( strip_tags( $author ) ) . '</cite>';
-                }
-            }
+                } /** End if - is object */
+
+            } /** End if - show author */
 
             if ( $link == '' ) {
                 echo "<li class='bns-smf-feeds'>$title{$date}{$summary}{$author}</li>";
             } else {
                 echo "<li><a class='bns-smf-feeds rsswidget' href='$link' " . (!$blank_window ? "target=''" : "target='_blank'") . " title='$desc'>$title</a>{$date}{$summary}{$author}</li>";
-            }
-        }
+            } /** End if - link */
+
+        } /** End for - rss */
+
         echo '</ul>';
         $rss->__destruct();
         unset( $rss );
 
-    }
+    } /** End function - widget rss output */
     /* ---- ... and the wheels on the bus go round and round ... ---- */
     /* ---- */
 
@@ -434,7 +471,7 @@ class BNS_SMF_Feeds_Widget extends WP_Widget {
     /** Register Widget */
     function load_bns_smf_feeds_widget() {
         register_widget( 'BNS_SMF_Feeds_Widget' );
-    }
+    } /** End function - register widget */
 
 
     /**
@@ -455,59 +492,60 @@ class BNS_SMF_Feeds_Widget extends WP_Widget {
 
         /** Start output buffer capture */
         ob_start(); ?>
-    <div class="bns-smf-feeds-shortcode">
-        <?php
-        /**
-         * Use 'the_widget' as the main output function to be captured
-         * @link http://codex.wordpress.org/Function_Reference/the_widget
-         */
-        the_widget(
-        /** The widget name as defined in the class extension */
-            'BNS_SMF_Feeds_Widget',
+        <div class="bns-smf-feeds-shortcode">
+            <?php
             /**
-             * The default options (as the shortcode attributes array) to be
-             * used with the widget
+             * Use 'the_widget' as the main output function to be captured
+             * @link http://codex.wordpress.org/Function_Reference/the_widget
              */
-            $instance = shortcode_atts(
-                array(
-                    /** Set title to null for aesthetic reasons */
-                    'title'           => __( 'SMF Forum Feed', 'bns-smf' ),
-                    'smf_forum_url'   => '',
-                    'smf_feed_type'   => 'rss2',
-                    'smf_sub_action'    => false,   // default to 'news' or recent Topics, check for 'recent' Posts
-                    'smf_boards'        => '',      // defaults to all
-                    'smf_categories'    => '',      // defaults to all
-                    'limit_count'       => '10',
-                    'show_author'       => false,   // Not currently supported by SMF feeds; future version?
-                    'show_date'         => false,
-                    'show_summary'      => false,
-                    'blank_window'      => false,
-                    'feed_refresh'      => '43200', // Default value as noted in feed.php core file = 12 hours
-                    'smf_feed_url'      => '',      // @todo need to fix this - Should not be used as a parameter
+            the_widget(
+            /** The widget name as defined in the class extension */
+                'BNS_SMF_Feeds_Widget',
+                /**
+                 * The default options (as the shortcode attributes array) to be
+                 * used with the widget
+                 */
+                $instance = shortcode_atts(
+                    array(
+                        /** Set title to null for aesthetic reasons */
+                        'title'           => __( 'SMF Forum Feed', 'bns-smf' ),
+                        'smf_forum_url'   => '',
+                        'smf_feed_type'   => 'rss2',
+                        'smf_sub_action'    => false,   // default to 'news' or recent Topics, check for 'recent' Posts
+                        'smf_boards'        => '',      // defaults to all
+                        'smf_categories'    => '',      // defaults to all
+                        'limit_count'       => '10',
+                        'show_author'       => false,   // Not currently supported by SMF feeds; future version?
+                        'show_date'         => false,
+                        'show_summary'      => false,
+                        'blank_window'      => false,
+                        'feed_refresh'      => '43200', // Default value as noted in feed.php core file = 12 hours
+                        'smf_feed_url'      => '',      // @todo need to fix this - Should not be used as a parameter
+                    ),
+                    $atts
                 ),
-                $atts
-            ),
-            /**
-             * Override the widget arguments and set to null. This will set the
-             * theme related widget definitions to null for aesthetic purposes.
-             */
-            $args = array (
-                'before_widget'   => '',
-                'before_title'    => '',
-                'after_title'     => '',
-                'after_widget'    => ''
-            ) ); ?>
-    </div><!-- .bns-smf-feeds-shortcode -->
-    <?php
+                /**
+                 * Override the widget arguments and set to null. This will set the
+                 * theme related widget definitions to null for aesthetic purposes.
+                 */
+                $args = array (
+                    'before_widget'   => '',
+                    'before_title'    => '',
+                    'after_title'     => '',
+                    'after_widget'    => ''
+                ) ); ?>
+        </div><!-- .bns-smf-feeds-shortcode -->
+        <?php
         /** Get the current output buffer contents and delete current output buffer. */
         /** @var $bns_smf_feeds_output string */
         $bns_smf_feeds_output = ob_get_clean();
 
         /** Return the output buffer data for use with add_shortcode output */
         return $bns_smf_feeds_output;
-    }
 
-} // End class BNS_SMF_Feeds_Widget
+    } /** End function - shortcode */
+
+} /** End class BNS_SMF_Feeds_Widget */
 
 
 /** @var $bnssmf - instantiate the class */

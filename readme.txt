@@ -116,6 +116,7 @@ Please stay current with your WordPress installation, your active theme, and you
 == Changelog ==
 = 1.9 =
 * Release February 2013
+* Added code block termination comments
 * Moved code into class structure
 
 = 1.8 =
