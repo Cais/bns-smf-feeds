@@ -3,7 +3,7 @@
 Plugin Name: BNS SMF Feeds
 Plugin URI: http://buynowshop.com/plugins/bns-smf-feeds/
 Description: Plugin with multi-widget functionality that builds an SMF Forum RSS feed url by user option choices; and, displays a SMF forum feed.
-Version: 1.9
+Version: 1.9.1
 Text Domain: bns-smf
 Author: Edward Caissie
 Author URI: http://edwardcaissie.com/
@@ -21,7 +21,7 @@ License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  * @link        http://buynowshop.com/plugins/bns-smf-feeds/
  * @link        https://github.com/Cais/bns-smf-feeds/
  * @link        http://wordpress.org/extend/plugins/bns-smf-feeds/
- * @version     1.9
+ * @version     1.9.1
  * @author      Edward Caissie <edward.caissie@gmail.com>
  * @copyright   Copyright (c) 2009-2013, Edward Caissie
  *
@@ -56,6 +56,10 @@ License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  * Added code block termination comments
  * Added documentation header blocks
  * Moved code into class structure
+ *
+ * @version 1.9.1
+ * @date    May 24, 2013
+ * Version number compatibility update
  *
  * @todo Review possible issues with cross-browser compatibility - see http://buynowshop.com/plugins/bns-smf-feeds/comment-page-1/#comment-11934
  * @todo Review if SMF feed offers a "select distinct" option for the feed ... ?
