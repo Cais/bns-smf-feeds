@@ -465,6 +465,7 @@ class BNS_SMF_Feeds_Widget extends WP_Widget {
 
             $link = esc_url( strip_tags( $link ) );
 
+            /** @todo - Can this be optionally limited? */
             /** @noinspection PhpUndefinedMethodInspection */
             $title = esc_attr( strip_tags( $item->get_title() ) );
 
