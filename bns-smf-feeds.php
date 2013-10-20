@@ -3,7 +3,7 @@
 Plugin Name: BNS SMF Feeds
 Plugin URI: http://buynowshop.com/plugins/bns-smf-feeds/
 Description: Plugin with multi-widget functionality that builds an SMF Forum RSS feed url by user option choices; and, displays a SMF forum feed.
-Version: 1.9.1
+Version: 1.9.2
 Text Domain: bns-smf
 Author: Edward Caissie
 Author URI: http://edwardcaissie.com/
@@ -21,7 +21,7 @@ License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  * @link        http://buynowshop.com/plugins/bns-smf-feeds/
  * @link        https://github.com/Cais/bns-smf-feeds/
  * @link        http://wordpress.org/extend/plugins/bns-smf-feeds/
- * @version     1.9.1
+ * @version     1.9.2
  * @author      Edward Caissie <edward.caissie@gmail.com>
  * @copyright   Copyright (c) 2009-2013, Edward Caissie
  *
@@ -61,8 +61,8 @@ License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  * @date    May 24, 2013
  * Version number compatibility update
  *
- * @todo Review possible issues with cross-browser compatibility - see http://buynowshop.com/plugins/bns-smf-feeds/comment-page-1/#comment-11934
- * @todo Review if SMF feed offers a "select distinct" option for the feed ... ?
+ * @version 1.9.2
+ * @date    October 2013
  */
 
 class BNS_SMF_Feeds_Widget extends WP_Widget {
@@ -457,7 +457,6 @@ class BNS_SMF_Feeds_Widget extends WP_Widget {
 
         foreach ( $rss->get_items( 0, $limit_count ) as $item ) {
 
-            /** @noinspection PhpUndefinedMethodInspection */
             $link = $item->get_link();
             while ( stristr( $link, 'http' ) != $link ) {
                 $link = substr( $link, 1 );
@@ -466,14 +465,12 @@ class BNS_SMF_Feeds_Widget extends WP_Widget {
             $link = esc_url( strip_tags( $link ) );
 
             /** @todo - Can this be optionally limited? */
-            /** @noinspection PhpUndefinedMethodInspection */
             $title = esc_attr( strip_tags( $item->get_title() ) );
 
             if ( empty( $title ) ) {
                 $title = __( 'Untitled', 'bns-smf' );
             } /** End if - empty title */
 
-            /** @noinspection PhpUndefinedMethodInspection */
             $desc = str_replace( array( "\n", "\r" ), ' ', esc_attr( strip_tags( @html_entity_decode( $item->get_description(), ENT_QUOTES, get_option( 'blog_charset' ) ) ) ) );
             $desc = wp_html_excerpt( $desc, 360 );
             $desc = esc_html( $desc );
@@ -487,7 +484,6 @@ class BNS_SMF_Feeds_Widget extends WP_Widget {
             $date = '';
 
             if ( $show_date ) {
-                /** @noinspection PhpUndefinedMethodInspection */
                 $date = $item->get_date();
                 if ( $date ) {
                     if ( $date_stamp = strtotime( $date ) )
@@ -501,10 +497,8 @@ class BNS_SMF_Feeds_Widget extends WP_Widget {
             $author = '';
 
             if ( $show_author ) {
-                /** @noinspection PhpUndefinedMethodInspection */
                 $author = $item->get_author();
                 if ( is_object( $author ) ) {
-                    /** @noinspection PhpUndefinedMethodInspection */
                     $author = $author->get_name();
                     $author = ' <cite>' . esc_html( strip_tags( $author ) ) . '</cite>';
                 } /** End if - is object */

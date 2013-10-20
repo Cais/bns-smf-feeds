@@ -1,10 +1,10 @@
 === BNS SMF Feeds ===
 Contributors: cais
 Donate link: http://buynowshop.com
-Tags: RSS, SMF, Multiple Widgets, Option Panel, widget-only
+Tags: RSS, SMF, Multiple Widgets, Option Panel
 Requires at least: 2.8
-Tested up to: 3.6
-Stable tag: 1.9.1
+Tested up to: 3.7
+Stable tag: 1.9.2
 
 Plugin with multi-widget functionality that builds an SMF Forum RSS feed url by user option choices; and, displays a SMF forum feed.
 
@@ -114,6 +114,10 @@ For more information you can read the following codex entries:
 Please stay current with your WordPress installation, your active theme, and your plugins.
 
 == Changelog ==
+= 1.9.2 =
+* Released October 2013
+* Minor clean up of comments
+
 = 1.9.1 =
 * Released May 2013
 * Version number compatibility update
