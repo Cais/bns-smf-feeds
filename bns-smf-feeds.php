@@ -3,7 +3,7 @@
 Plugin Name: BNS SMF Feeds
 Plugin URI: http://buynowshop.com/plugins/bns-smf-feeds/
 Description: Plugin with multi-widget functionality that builds an SMF Forum RSS feed url by user option choices; and, displays a SMF forum feed.
-Version: 1.9.2
+Version: 1.9.3
 Text Domain: bns-smf
 Author: Edward Caissie
 Author URI: http://edwardcaissie.com/
@@ -21,7 +21,7 @@ License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  * @link        http://buynowshop.com/plugins/bns-smf-feeds/
  * @link        https://github.com/Cais/bns-smf-feeds/
  * @link        http://wordpress.org/extend/plugins/bns-smf-feeds/
- * @version     1.9.2
+ * @version     1.9.3
  * @author      Edward Caissie <edward.caissie@gmail.com>
  * @copyright   Copyright (c) 2009-2013, Edward Caissie
  *
@@ -45,24 +45,11 @@ License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  * The license for this software can also likely be found here:
  * http://www.gnu.org/licenses/gpl-2.0.html
  *
- * @version 1.8
- * @date    October 24, 2012
- * Remove load_textdomain as redundant
- * Remove unused Author option
- * Add Shortcode `bns_smf_feeds`
- *
- * @version 1.9
- * @date    February 14, 2013
- * Added code block termination comments
- * Added documentation header blocks
- * Moved code into class structure
- *
- * @version 1.9.1
- * @date    May 24, 2013
- * Version number compatibility update
- *
  * @version 1.9.2
  * @date    October 2013
+ *
+ * @version 1.9.3
+ * @date    November 2013
  */
 
 class BNS_SMF_Feeds_Widget extends WP_Widget {
@@ -134,7 +121,6 @@ class BNS_SMF_Feeds_Widget extends WP_Widget {
         global $blank_window;
         extract( $args );
         /** User-selected settings */
-        /** @noinspection PhpUnusedLocalVariableInspection */
         $title          = apply_filters( 'widget_title', $instance['title'] );
         $smf_forum_url  = $instance['smf_forum_url'];
         $smf_feed_type  = $instance['smf_feed_type'];
@@ -149,7 +135,7 @@ class BNS_SMF_Feeds_Widget extends WP_Widget {
         $feed_refresh   = $instance['feed_refresh'];
         $smf_feed_url   = $instance['smf_feed_url'];
 
-        if ( empty($smf_feed_url) ) {
+        if ( empty( $smf_feed_url ) ) {
             $smf_feed_url  = '';
             $smf_feed_url .= $smf_forum_url . "index.php?";
             $smf_feed_url .= "type=" . $smf_feed_type . ";";
@@ -174,9 +160,6 @@ class BNS_SMF_Feeds_Widget extends WP_Widget {
         } /** End if - empty smf feed url */
 
         $rss = $this->bns_fetch_feed( $smf_feed_url );
-        $title = $instance['title'];
-        $desc = '';
-        $link = '';
 
         if ( ! is_wp_error( $rss ) ) {
             $desc = esc_attr( strip_tags( @html_entity_decode( $rss->get_description(), ENT_QUOTES, get_option( 'blog_charset' ) ) ) );
@@ -190,6 +173,9 @@ class BNS_SMF_Feeds_Widget extends WP_Widget {
             while ( stristr( $link, 'http' ) != $link ) {
                 $link = substr( $link, 1 );
             } /** End while */
+        } else {
+            $desc = '';
+            $link = '';
         } /** End of - is wp error */
 
         if ( empty( $title ) ) {
@@ -321,12 +307,12 @@ class BNS_SMF_Feeds_Widget extends WP_Widget {
         </p>
 
         <p>
-            <label for="<?php echo $this->get_field_id( 'smf_boards' ); ?>"><?php _e( 'Specify Boards by ID (default is ALL):', 'bns-smf' ); ?></label>
+            <label for="<?php echo $this->get_field_id( 'smf_boards' ); ?>"><?php _e( 'Specify Boards separated by commas by ID (default is ALL):', 'bns-smf' ); ?></label>
             <input id="<?php echo $this->get_field_id( 'smf_boards' ); ?>" name="<?php echo $this->get_field_name( 'smf_boards' ); ?>" value="<?php echo $instance['smf_boards']; ?>" style="width:100%;" />
         </p>
 
         <p>
-            <label for="<?php echo $this->get_field_id( 'smf_categories' ); ?>"><?php _e( 'Specify Categories by ID (default is ALL):', 'bns-smf' ); ?></label>
+            <label for="<?php echo $this->get_field_id( 'smf_categories' ); ?>"><?php _e( 'Specify Categories separated by commas by ID (default is ALL):', 'bns-smf' ); ?></label>
             <input id="<?php echo $this->get_field_id( 'smf_categories' ); ?>" name="<?php echo $this->get_field_name( 'smf_categories' ); ?>" value="<?php echo $instance['smf_categories']; ?>" style="width:100%;" />
         </p>
 
