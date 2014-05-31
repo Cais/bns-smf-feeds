@@ -174,7 +174,7 @@ class BNS_SMF_Feeds_Widget extends WP_Widget {
 		}
 		/** End if - empty smf feed url */
 
-		$rss = $this->bns_fetch_feed( $smf_feed_url );
+		$rss = $this->bns_fetch_feed( $smf_feed_url, $feed_refresh );
 
 		if ( ! is_wp_error( $rss ) ) {
 			$desc = esc_attr( strip_tags( @html_entity_decode( $rss->get_description(), ENT_QUOTES, get_option( 'blog_charset' ) ) ) );
@@ -224,7 +224,7 @@ class BNS_SMF_Feeds_Widget extends WP_Widget {
 
 		/** Display feed from widget settings */
 		$this->bns_wp_widget_rss_output(
-			 $smf_feed_url, array(
+			 $smf_feed_url, $feed_refresh, array(
 					 'show_author'  => ( ( $show_author ) ? 1 : 0 ),
 					 'show_date'    => ( ( $show_date ) ? 1 : 0 ),
 					 'show_summary' => ( ( $show_summary ) ? 1 : 0 )
@@ -439,15 +439,19 @@ class BNS_SMF_Feeds_Widget extends WP_Widget {
 	/**
 	 * Build SimplePie object based on RSS or Atom feed from URL.
 	 *
-	 * @package WordPress
-	 * @since   2.8
+	 * @package    WordPress
+	 * @since      2.8
 	 *
 	 * @param   string $url URL to retrieve feed
+	 * @param    int   $feed_refresh
 	 *
 	 * @return  WP_Error|SimplePie WP_Error object on failure or SimplePie object on success
+	 *
+	 * @version    1.9.4
+	 * @date       May 31, 2014
+	 * Added $feed_fresh parameter to take it out of the global realm
 	 */
-	function bns_fetch_feed( $url ) {
-		global $feed_refresh;
+	function bns_fetch_feed( $url, $feed_refresh ) {
 		require_once( ABSPATH . WPINC . '/class-feed.php' );
 		$feed = new SimplePie();
 		$feed->set_feed_url( $url );
@@ -472,22 +476,27 @@ class BNS_SMF_Feeds_Widget extends WP_Widget {
 	/**
 	 * Display the RSS entries in a list.
 	 *
-	 * @package WordPress
-	 * @since   2.5.0
+	 * @package    WordPress
+	 * @since      2.5.0
 	 *
 	 * @param         $rss
+	 * @param         $feed_refresh
 	 * @param   array $args
 	 *
 	 * @return  void
+	 *
+	 * @version    1.9.4
+	 * @date       May 31, 2014
+	 * Added $feed_fresh parameter to take it out of the global realm
 	 */
-	function bns_wp_widget_rss_output( $rss, $args = array() ) {
+	function bns_wp_widget_rss_output( $rss, $feed_refresh, $args = array() ) {
 		global $blank_window, $limit_count;
 
 		if ( is_string( $rss ) ) {
-			$rss = $this->bns_fetch_feed( $rss );
+			$rss = $this->bns_fetch_feed( $rss, $feed_refresh );
 		} elseif ( is_array( $rss ) && isset( $rss['url'] ) ) {
 			$args = $rss;
-			$rss  = $this->bns_fetch_feed( $rss['url'] );
+			$rss  = $this->bns_fetch_feed( $rss['url'], $feed_refresh );
 		} elseif ( ! is_object( $rss ) ) {
 			return;
 		}
