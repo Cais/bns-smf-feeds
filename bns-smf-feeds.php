@@ -273,17 +273,24 @@ class BNS_SMF_Feeds_Widget extends WP_Widget {
 	/**
 	 * Form
 	 *
-	 * @package BNS_SMF_Feeds
+	 * @package    BNS_SMF_Feeds
+	 * @since      1.0
 	 *
-	 * @uses    checked
-	 * @uses    get_field_id
-	 * @uses    get_field_name
-	 * @uses    selected
-	 * @uses    wp_parse_args
+	 * @uses       __
+	 * @uses       _e
+	 * @uses       checked
+	 * @uses       get_field_id
+	 * @uses       get_field_name
+	 * @uses       selected
+	 * @uses       wp_parse_args
 	 *
 	 * @param   array $instance
 	 *
 	 * @return  string|void
+	 *
+	 * @version    1.9.4
+	 * @date       May 31, 2014
+	 * Fixed selection code for feed types
 	 */
 	function form( $instance ) {
 		/** Set up default widget settings */
@@ -333,17 +340,17 @@ class BNS_SMF_Feeds_Widget extends WP_Widget {
 			<select id="<?php echo $this->get_field_id( 'smf_feed_type' ); ?>"
 					name="<?php echo $this->get_field_name( 'smf_feed_type' ); ?>"
 					class="widefat" style="width:100%;">
-				<option <?php selected( 'rss', $instance['smf_feed_type'], true ); ?>>
-					rss
+				<option value="rss" <?php selected( 'rss', $instance['smf_feed_type'], true ); ?>>
+					<?php _e( 'RSS', 'bns-smf' ); ?>
 				</option>
-				<option <?php selected( 'rss2', $instance['smf_feed_type'], true ); ?>>
-					rss2
+				<option value="rss2" <?php selected( 'rss2', $instance['smf_feed_type'], true ); ?>>
+					<?php _e( 'RSS2', 'bns-smf' ); ?>
 				</option>
-				<option <?php selected( 'atom', $instance['smf_feed_type'], true ); ?>>
-					atom
+				<option value="atom" <?php selected( 'atom', $instance['smf_feed_type'], true ); ?>>
+					<?php _e( 'ATOM', 'bns-smf' ); ?>
 				</option>
-				<option <?php selected( 'rdf', $instance['smf_feed_type'], true ); ?>>
-					rdf
+				<option value="rdf" <?php selected( 'rdf', $instance['smf_feed_type'], true ); ?>>
+					<?php _e( 'RDF', 'bns-smf' ); ?>
 				</option>
 			</select>
 		</p>
