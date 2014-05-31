@@ -117,6 +117,7 @@ Please stay current with your WordPress installation, your active theme, and you
 = 1.9.4 =
 * Released ...
 * Code reformatting to better meet WordPress Coding Standards
+* Update required version to WordPress 3.6 to use shortcode filter parameter
 * Update Copyright years
 
 = 1.9.3 =

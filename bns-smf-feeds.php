@@ -56,41 +56,40 @@ class BNS_SMF_Feeds_Widget extends WP_Widget {
 	/**
 	 * Constructor
 	 *
-	 * @package BNS_SMF_Feeds
+	 * @package         BNS_SMF_Feeds
+	 * @since           1.0
 	 *
-	 * @uses    WP_Widget (class)
-	 * @uses    add_action
-	 * @uses    add_shortcode
+	 * @uses    (class) WP_Widget
+	 * @uses            __
+	 * @uses            add_action
+	 * @uses            add_shortcode
 	 */
 	function BNS_SMF_Feeds_Widget() {
+		/**
+		 * Check installed WordPress version for compatibility
+		 *
+		 * @version    1.9.4
+		 * @date       May 31, 2014
+		 * Updated required WordPress version to 3.6 to use shortcode filter parameter
+		 */
+		global $wp_version;
+		$exit_message = __( 'BNS SMF Feeds requires WordPress version 3.6 or newer. <a href="http://codex.wordpress.org/Upgrading_WordPress">Please Update!</a>', 'bns-smf' );
+		if ( version_compare( $wp_version, "3.6", "<" ) ) {
+			exit ( $exit_message );
+		}
+		/** End if - version compare */
+
 		/** Widget settings */
 		$widget_ops = array(
 			'classname'   => 'bns-smf-feeds',
 			'description' => __( 'Displays recent feeds from a SMF Forum.', 'bns-smf' )
 		);
+
 		/** Widget control settings */
 		$control_ops = array( 'width' => 200, 'id_base' => 'bns-smf-feeds' );
+
 		/** Create the widget */
 		$this->WP_Widget( 'bns-smf-feeds', 'BNS SMF Feeds', $widget_ops, $control_ops );
-
-		/**
-		 * Check installed WordPress version for compatibility
-		 *
-		 * @package  BNS_SMF_Feeds
-		 * @since    1.0
-		 * @internal Version 2.8 being used in reference to `register_widget`
-		 *
-		 * @version  1.7
-		 * @date     November 23, 2011.
-		 * Re-write to be i18n compatible
-		 */
-		global $wp_version;
-		$exit_message = __( 'BNS SMF Feeds requires WordPress version 2.8 or newer. <a href="http://codex.wordpress.org/Upgrading_WordPress">Please Update!</a>', 'bns-smf' );
-		if ( version_compare( $wp_version, "2.8", "<" ) ) {
-			exit ( $exit_message );
-		}
-		/** End if - version compare */
-
 
 		/** Add Widget */
 		add_action(
@@ -633,17 +632,21 @@ class BNS_SMF_Feeds_Widget extends WP_Widget {
 	 * capture `the_widget` output and return the data to be displayed via the use
 	 * of the `bns_smf_feeds` shortcode.
 	 *
-	 * @package  BNS_SMF_Feeds
-	 * @since    1.8
+	 * @package    BNS_SMF_Feeds
+	 * @since      1.8
 	 *
-	 * @uses     the_widget
-	 * @uses     shortcode_atts
+	 * @uses       the_widget
+	 * @uses       shortcode_atts
 	 *
 	 * @param   $atts
 	 *
-	 * @internal used with add_shortcode
+	 * @internal   used with add_shortcode
 	 *
 	 * @return string
+	 *
+	 * @version    1.9.4
+	 * @date       May 31, 2014
+	 * Added shortcode option filter
 	 */
 	function BNS_SMF_Feeds_Shortcode( $atts ) {
 
@@ -669,23 +672,23 @@ class BNS_SMF_Feeds_Widget extends WP_Widget {
 						'smf_forum_url'  => '',
 						'smf_feed_type'  => 'rss2',
 						'smf_sub_action' => false,
-						// default to 'news' or recent Topics, check for 'recent' Posts
+						/** default to 'news' or recent Topics, check for 'recent' Posts */
 						'smf_boards'     => '',
-						// defaults to all
+						/** defaults to all */
 						'smf_categories' => '',
-						// defaults to all
+						/** defaults to all */
 						'limit_count'    => '10',
 						'show_author'    => false,
-						// Not currently supported by SMF feeds; future version?
+						/** Not currently supported by SMF feeds; future version? */
 						'show_date'      => false,
 						'show_summary'   => false,
 						'blank_window'   => false,
 						'feed_refresh'   => '43200',
-						// Default value as noted in feed.php core file = 12 hours
+						/** Default value as noted in feed.php core file = 12 hours */
 						'smf_feed_url'   => '',
-						// @todo need to fix this - Should not be used as a parameter
+						/** @todo need to fix this - Should not be used as a parameter */
 					),
-					$atts
+					$atts, 'bns_smf_feeds'
 				),
 				/**
 				 * Override the widget arguments and set to null. This will set the
