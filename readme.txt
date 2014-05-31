@@ -118,6 +118,7 @@ Please stay current with your WordPress installation, your active theme, and you
 * Released ...
 * Added $feed_fresh parameter to take it out of the "global" realm
 * Code reformatting to better meet WordPress Coding Standards
+* Minor option panel layout adjustments
 * Update required version to WordPress 3.6 to use shortcode filter parameter
 * Update Copyright years
 

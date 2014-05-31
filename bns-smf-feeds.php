@@ -406,6 +406,8 @@ class BNS_SMF_Feeds_Widget extends WP_Widget {
 							for="<?php echo $this->get_field_id( 'show_summary' ); ?>"><?php _e( 'Show item summary?', 'bns-smf' ); ?></label>
 					</p>
 				</td>
+			</tr>
+			<tr>
 				<td>
 					<p>
 						<input class="checkbox"
