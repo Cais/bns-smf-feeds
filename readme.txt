@@ -115,7 +115,7 @@ Please stay current with your WordPress installation, your active theme, and you
 
 == Changelog ==
 = 1.9.4 =
-* Released ...
+* Released May 2014
 * Added $feed_fresh parameter to take it out of the "global" realm
 * Code reformatting to better meet WordPress Coding Standards
 * Fixed selection code for feed types
