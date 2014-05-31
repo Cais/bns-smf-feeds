@@ -90,7 +90,7 @@ For more information you can read the following codex entries:
 1. The options panel.
 
 == Other Notes ==
-* Copyright 2009-2013  Edward Caissie  (email : edward.caissie@gmail.com)
+* Copyright 2009-2014  Edward Caissie  (email : edward.caissie@gmail.com)
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License version 2,
@@ -117,6 +117,7 @@ Please stay current with your WordPress installation, your active theme, and you
 = 1.9.4 =
 * Released ...
 * Code reformatting to better meet WordPress Coding Standards
+* Update Copyright years
 
 = 1.9.3 =
 * Released November 2013
