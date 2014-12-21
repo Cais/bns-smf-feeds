@@ -70,6 +70,7 @@ class BNS_SMF_Feeds_Widget extends WP_Widget {
 
 	} /** End functions - get instance */
 
+
 	/**
 	 * Constructor
 	 *
