@@ -116,6 +116,7 @@ Please stay current with your WordPress installation, your active theme, and you
 == Changelog ==
 = 2.0 =
 * Released ...
+* Added "In Plugin Update Message" function to display relevant `changelog` entries
 * Changed to a "Singleton" instantiation method
 * Improved code formatting to better meet WordPress Code Standards
 * Optimized `esc_attr( __() )` to `esc_attr__()`
