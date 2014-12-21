@@ -259,6 +259,8 @@ class BNS_SMF_Feeds_Widget extends WP_Widget {
 		}
 		/** End if - title */
 
+		echo '<div class="bns-smf-feeds-content">';
+
 		/** Display feed from widget settings */
 		$this->bns_wp_widget_rss_output(
 			$smf_feed_url, $feed_refresh, array(
@@ -267,6 +269,8 @@ class BNS_SMF_Feeds_Widget extends WP_Widget {
 				'show_summary' => ( ( $show_summary ) ? 1 : 0 )
 			)
 		);
+
+		echo '</div><!-- .bns-smf-feeds-content -->';
 
 		/** @var $after_widget string - defined by theme */
 		echo $after_widget;
