@@ -3,7 +3,7 @@
 Plugin Name: BNS SMF Feeds
 Plugin URI: http://buynowshop.com/plugins/bns-smf-feeds/
 Description: Plugin with multi-widget functionality that builds an SMF Forum RSS feed url by user option choices; and, displays a SMF forum feed.
-Version: 1.9.5
+Version: 2.0
 Text Domain: bns-smf
 Author: Edward Caissie
 Author URI: http://edwardcaissie.com/
@@ -21,7 +21,7 @@ License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  * @link        http://buynowshop.com/plugins/bns-smf-feeds/
  * @link        https://github.com/Cais/bns-smf-feeds/
  * @link        http://wordpress.org/extend/plugins/bns-smf-feeds/
- * @version     1.9.5
+ * @version     2.0
  * @author      Edward Caissie <edward.caissie@gmail.com>
  * @copyright   Copyright (c) 2009-2014, Edward Caissie
  *
@@ -47,6 +47,29 @@ License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 class BNS_SMF_Feeds_Widget extends WP_Widget {
 
+	private static $instance = false;
+
+	/**
+	 * Get Instance
+	 *
+	 * @since   2.0
+	 *
+	 * @return BNS_SMF_Feeds_Widget|bool
+	 */
+	public static function get_instance() {
+
+		if ( ! self::$instance ) {
+
+			self::$instance = new self();
+
+		}
+
+		/** End if - instance exists */
+
+		return self::$instance;
+
+	} /** End functions - get instance */
+
 	/**
 	 * Constructor
 	 *
@@ -57,8 +80,12 @@ class BNS_SMF_Feeds_Widget extends WP_Widget {
 	 * @uses            __
 	 * @uses            add_action
 	 * @uses            add_shortcode
+	 *
+	 * @version         2.0
+	 * @date            December 21, 2014
+	 * Changed function name from `BNS_SMF_Feed_Widget` to the default `__construct` method name
 	 */
-	function BNS_SMF_Feeds_Widget() {
+	function __construct() {
 		/**
 		 * Check installed WordPress version for compatibility
 		 *
@@ -127,7 +154,7 @@ class BNS_SMF_Feeds_Widget extends WP_Widget {
 	 * @param   array $args
 	 * @param   array $instance
 	 *
-	 * @version 1.9.5
+	 * @version 2.0
 	 * @date    December 21, 2014
 	 * Replaced (internal) `get_permalink` with `get_link`
 	 * Optimized `esc_attr( __() )` to `esc_attr__()`
@@ -508,13 +535,13 @@ class BNS_SMF_Feeds_Widget extends WP_Widget {
 	 * @package    WordPress
 	 * @since      2.5.0
 	 *
-	 * @uses    BNS_SMF_Feed_Widget::bns_fetch_feed
-	 * @uses    __
-	 * @uses    current_user_can
-	 * @uses    is_admin
-	 * @uses    is_wp_error
-	 * @uses    wp_html_excerpt
-	 * @uses    wp_parse_args
+	 * @uses       BNS_SMF_Feed_Widget::bns_fetch_feed
+	 * @uses       __
+	 * @uses       current_user_can
+	 * @uses       is_admin
+	 * @uses       is_wp_error
+	 * @uses       wp_html_excerpt
+	 * @uses       wp_parse_args
 	 *
 	 * @param         $rss
 	 * @param         $feed_refresh
@@ -765,6 +792,5 @@ class BNS_SMF_Feeds_Widget extends WP_Widget {
 
 /** End class BNS_SMF_Feeds_Widget */
 
-
-/** @var $bnssmf - instantiate the class */
-$bnssmf = new BNS_SMF_Feeds_Widget();
+/** @var $bnssmf - instantiate the class as a singleton */
+$bnssmf = BNS_SMF_Feeds_Widget::get_instance();

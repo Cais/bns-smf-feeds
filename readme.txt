@@ -114,8 +114,9 @@ For more information you can read the following codex entries:
 Please stay current with your WordPress installation, your active theme, and your plugins.
 
 == Changelog ==
-= 1.9.5 =
+= 2.0 =
 * Released ...
+* Changed to a "Singleton" instantiation method
 * Improved code formatting to better meet WordPress Code Standards
 * Optimized `esc_attr( __() )` to `esc_attr__()`
 * Updated inline documentation
