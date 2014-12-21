@@ -158,12 +158,16 @@ class BNS_SMF_Feeds_Widget extends WP_Widget {
 			$smf_feed_url .= "type=" . $smf_feed_type . ";";
 			$smf_feed_url .= "action=.xml;";
 			if ( ! $smf_sub_action ) {
-				$smf_feed_url .= "sa=news;"; /** sets feed to Recent Topics */
+				$smf_feed_url .= "sa=news;";
+				/** sets feed to Recent Topics */
 			} else {
-				$smf_feed_url .= "sa=recent;"; /** sets feed to Recent Posts */
+				$smf_feed_url .= "sa=recent;";
+				/** sets feed to Recent Posts */
 			}
-			$smf_feed_url .= "board=" . $smf_boards . ";"; /** specify boards */
-			$smf_feed_url .= "c=" . $smf_categories . ";"; /** specify categories */
+			$smf_feed_url .= "board=" . $smf_boards . ";";
+			/** specify boards */
+			$smf_feed_url .= "c=" . $smf_categories . ";";
+			/** specify categories */
 			$smf_feed_url .= "limit=" . $limit_count;
 		}
 		/** End if - empty smf feed url */
@@ -281,11 +285,11 @@ class BNS_SMF_Feeds_Widget extends WP_Widget {
 	 * @package    BNS_SMF_Feeds
 	 * @since      1.0
 	 *
+	 * @uses       BNS_SMF_Feeds_Widget::get_field_id
+	 * @uses       BNS_SMF_Feeds_Widget::get_field_name
 	 * @uses       __
 	 * @uses       _e
 	 * @uses       checked
-	 * @uses       get_field_id
-	 * @uses       get_field_name
 	 * @uses       selected
 	 * @uses       wp_parse_args
 	 *
@@ -304,19 +308,19 @@ class BNS_SMF_Feeds_Widget extends WP_Widget {
 			'smf_forum_url'  => '',
 			'smf_feed_type'  => 'rss2',
 			'smf_sub_action' => false,
-			// default to 'news' or recent Topics, check for 'recent' Posts
+			/** default to 'news' or recent Topics, check for 'recent' Posts */
 			'smf_boards'     => '',
-			// defaults to all
+			/** defaults to all */
 			'smf_categories' => '',
-			// defaults to all
+			/** defaults to all */
 			'limit_count'    => '10',
 			'show_author'    => false,
-			// Not currently supported by SMF feeds; future version?
+			/** Not currently supported by SMF feeds; future version? */
 			'show_date'      => false,
 			'show_summary'   => false,
 			'blank_window'   => false,
 			'feed_refresh'   => '43200'
-			// Default value as noted in feed.php core file = 12 hours
+			/** Default value as noted in feed.php core file = 12 hours */
 		);
 		$instance['number'] = $this->number;
 		$instance           = wp_parse_args( ( array ) $instance, $defaults ); ?>
@@ -456,8 +460,16 @@ class BNS_SMF_Feeds_Widget extends WP_Widget {
 	 * @package    WordPress
 	 * @since      2.8
 	 *
+	 * @uses       SimplePie::error
+	 * @uses       SimplePie::handle_content_type
+	 * @uses       SimplePie::init
+	 * @uses       SimplePie::set_feed_url
+	 * @uses       SimplePie::set_file_class
+	 * @uses       SimplePie::set_cache_class
+	 * @uses       SimplePie::set_cache_duration
+	 *
 	 * @param   string $url URL to retrieve feed
-	 * @param    int   $feed_refresh
+	 * @param   int    $feed_refresh
 	 *
 	 * @return  WP_Error|SimplePie WP_Error object on failure or SimplePie object on success
 	 *
@@ -466,7 +478,10 @@ class BNS_SMF_Feeds_Widget extends WP_Widget {
 	 * Added $feed_fresh parameter to take it out of the global realm
 	 */
 	function bns_fetch_feed( $url, $feed_refresh ) {
+
 		require_once( ABSPATH . WPINC . '/class-feed.php' );
+
+		/** @var object $feed - create new SimplePie instance */
 		$feed = new SimplePie();
 		$feed->set_feed_url( $url );
 		$feed->set_cache_class( 'WP_Feed_Cache' );
@@ -493,6 +508,14 @@ class BNS_SMF_Feeds_Widget extends WP_Widget {
 	 * @package    WordPress
 	 * @since      2.5.0
 	 *
+	 * @uses    BNS_SMF_Feed_Widget::bns_fetch_feed
+	 * @uses    __
+	 * @uses    current_user_can
+	 * @uses    is_admin
+	 * @uses    is_wp_error
+	 * @uses    wp_html_excerpt
+	 * @uses    wp_parse_args
+	 *
 	 * @param         $rss
 	 * @param         $feed_refresh
 	 * @param   array $args
@@ -504,6 +527,7 @@ class BNS_SMF_Feeds_Widget extends WP_Widget {
 	 * Added $feed_fresh parameter to take it out of the global realm
 	 */
 	function bns_wp_widget_rss_output( $rss, $feed_refresh, $args = array() ) {
+
 		global $blank_window, $limit_count;
 
 		if ( is_string( $rss ) ) {
