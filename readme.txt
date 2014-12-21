@@ -115,7 +115,7 @@ Please stay current with your WordPress installation, your active theme, and you
 
 == Changelog ==
 = 2.0 =
-* Released ...
+* Released December 2014
 * Added "In Plugin Update Message" function to display relevant `changelog` entries
 * Added class `bns-smf-feeds-content` wrapper for widget output
 * Changed to a "Singleton" instantiation method
