@@ -53,7 +53,7 @@ class BNS_SMF_Feeds_Widget extends WP_Widget {
 	 * @package         BNS_SMF_Feeds
 	 * @since           1.0
 	 *
-	 * @uses            (class) WP_Widget
+	 * @uses            BNS_SMF_Feeds_Widget::WP_Widget (factory)
 	 * @uses            __
 	 * @uses            add_action
 	 * @uses            add_shortcode
@@ -109,22 +109,33 @@ class BNS_SMF_Feeds_Widget extends WP_Widget {
 	 *
 	 * @package BNS_SMF_Feeds
 	 *
+	 * @uses    BNS_SMF_Feeds_Widget::bns_fetch_feed
+	 * @uses    BNS_SMF_Feeds_Widget::bns_wp_widget_rss_output
+	 * @uses    __
 	 * @uses    apply_filters
 	 * @uses    esc_attr
+	 * @uses    esc_attr__
 	 * @uses    esc_html
 	 * @uses    esc_url
 	 * @uses    get_description
+	 * @uses    get_link
 	 * @uses    get_option
-	 * @uses    get_permalink
 	 * @uses    get_title
 	 * @uses    includes_url
 	 * @uses    is_wp_error
 	 *
 	 * @param   array $args
 	 * @param   array $instance
+	 *
+	 * @version 1.9.5
+	 * @date    December 21, 2014
+	 * Replaced (internal) `get_permalink` with `get_link`
+	 * Optimized `esc_attr( __() )` to `esc_attr__()`
 	 */
 	function widget( $args, $instance ) {
+
 		global $blank_window;
+
 		extract( $args );
 		/** User-selected settings */
 		$title          = apply_filters( 'widget_title', $instance['title'] );
@@ -147,17 +158,17 @@ class BNS_SMF_Feeds_Widget extends WP_Widget {
 			$smf_feed_url .= "type=" . $smf_feed_type . ";";
 			$smf_feed_url .= "action=.xml;";
 			if ( ! $smf_sub_action ) {
-				$smf_feed_url .= "sa=news;"; /* sets feed to Recent Topics */
+				$smf_feed_url .= "sa=news;"; /** sets feed to Recent Topics */
 			} else {
-				$smf_feed_url .= "sa=recent;"; /* sets feed to Recent Posts */
+				$smf_feed_url .= "sa=recent;"; /** sets feed to Recent Posts */
 			}
-			$smf_feed_url .= "board=" . $smf_boards . ";"; /* specify boards */
-			$smf_feed_url .= "c=" . $smf_categories . ";"; /* specify categories */
+			$smf_feed_url .= "board=" . $smf_boards . ";"; /** specify boards */
+			$smf_feed_url .= "c=" . $smf_categories . ";"; /** specify categories */
 			$smf_feed_url .= "limit=" . $limit_count;
 		}
 		/** End if - empty smf feed url */
 
-		/* ---- taken from ../wp-includes/default-widgets.php ---- */
+		/** ---- taken from ../wp-includes/default-widgets.php ---- */
 		while ( stristr( $smf_feed_url, 'http' ) != $smf_feed_url ) {
 			$smf_feed_url = substr( $smf_feed_url, 1 );
 		}
@@ -178,7 +189,7 @@ class BNS_SMF_Feeds_Widget extends WP_Widget {
 			}
 			/** End if - empty title */
 
-			$link = esc_url( strip_tags( $rss->get_permalink() ) );
+			$link = esc_url( strip_tags( $rss->get_link() ) );
 
 			while ( stristr( $link, 'http' ) != $link ) {
 				$link = substr( $link, 1 );
@@ -200,7 +211,7 @@ class BNS_SMF_Feeds_Widget extends WP_Widget {
 		$icon         = includes_url( 'images/rss.png' );
 
 		if ( $title ) {
-			$title = "<a class='bns-smf-feeds rsswidget' href='$smf_feed_url' " . ( ! $blank_window ? "target=''" : "target='_blank'" ) . " title='" . esc_attr( __( 'Syndicate this content', 'bns-smf' ) ) . "'><img style='background:orange;color:white;border:none;' width='14' height='14' src='$icon' alt='RSS' /></a> <a class='bns-smf-feeds rsswidget' href='$link' " . ( ! $blank_window ? "target=''" : "target='_blank'" ) . " title='$desc'>$title</a>";
+			$title = "<a class='bns-smf-feeds rsswidget' href='$smf_feed_url' " . ( ! $blank_window ? "target=''" : "target='_blank'" ) . " title='" . esc_attr__( 'Syndicate this content', 'bns-smf' ) . "'><img style='background:orange;color:white;border:none;' width='14' height='14' src='$icon' alt='RSS' /></a> <a class='bns-smf-feeds rsswidget' href='$link' " . ( ! $blank_window ? "target=''" : "target='_blank'" ) . " title='$desc'>$title</a>";
 		}
 		/** End if - title */
 		/* ---- ... and the wheels on the bus go round and round ... ---- */

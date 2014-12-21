@@ -2,7 +2,7 @@
 Contributors: cais
 Donate link: http://buynowshop.com
 Tags: RSS, SMF, Multiple Widgets, Option Panel
-Requires at least: 2.8
+Requires at least: 3.6
 Tested up to: 4.1
 Stable tag: 1.9.5
 
@@ -117,7 +117,10 @@ Please stay current with your WordPress installation, your active theme, and you
 = 1.9.5 =
 * Released ...
 * Improved code formatting to better meet WordPress Code Standards
+* Optimized `esc_attr( __() )` to `esc_attr__()`
+* Updated inline documentation
 * Updated "Tested up to" version to 4.1
+* Updated "Requires at least" version to 3.6 (for shortcode filter option)
 
 = 1.9.4 =
 * Released May 2014
