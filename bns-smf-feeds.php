@@ -3,7 +3,7 @@
 Plugin Name: BNS SMF Feeds
 Plugin URI: http://buynowshop.com/plugins/bns-smf-feeds/
 Description: Plugin with multi-widget functionality that builds an SMF Forum RSS feed url by user option choices; and, displays a SMF forum feed.
-Version: 1.9.4
+Version: 1.9.5
 Text Domain: bns-smf
 Author: Edward Caissie
 Author URI: http://edwardcaissie.com/
@@ -21,7 +21,7 @@ License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  * @link        http://buynowshop.com/plugins/bns-smf-feeds/
  * @link        https://github.com/Cais/bns-smf-feeds/
  * @link        http://wordpress.org/extend/plugins/bns-smf-feeds/
- * @version     1.9.4
+ * @version     1.9.5
  * @author      Edward Caissie <edward.caissie@gmail.com>
  * @copyright   Copyright (c) 2009-2014, Edward Caissie
  *
@@ -44,12 +44,6 @@ License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  *
  * The license for this software can also likely be found here:
  * http://www.gnu.org/licenses/gpl-2.0.html
- *
- * @version     1.9.3
- * @date        November 2013
- *
- * @version     1.9.4
- * @date        May 2014
  */
 class BNS_SMF_Feeds_Widget extends WP_Widget {
 
@@ -59,7 +53,7 @@ class BNS_SMF_Feeds_Widget extends WP_Widget {
 	 * @package         BNS_SMF_Feeds
 	 * @since           1.0
 	 *
-	 * @uses    (class) WP_Widget
+	 * @uses            (class) WP_Widget
 	 * @uses            __
 	 * @uses            add_action
 	 * @uses            add_shortcode
@@ -224,11 +218,11 @@ class BNS_SMF_Feeds_Widget extends WP_Widget {
 
 		/** Display feed from widget settings */
 		$this->bns_wp_widget_rss_output(
-			 $smf_feed_url, $feed_refresh, array(
-					 'show_author'  => ( ( $show_author ) ? 1 : 0 ),
-					 'show_date'    => ( ( $show_date ) ? 1 : 0 ),
-					 'show_summary' => ( ( $show_summary ) ? 1 : 0 )
-				 )
+			$smf_feed_url, $feed_refresh, array(
+				'show_author'  => ( ( $show_author ) ? 1 : 0 ),
+				'show_date'    => ( ( $show_date ) ? 1 : 0 ),
+				'show_summary' => ( ( $show_summary ) ? 1 : 0 )
+			)
 		);
 
 		/** @var $after_widget string - defined by theme */
@@ -320,26 +314,26 @@ class BNS_SMF_Feeds_Widget extends WP_Widget {
 			<label
 				for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title (optional; if blank: defaults to feed title, if it exists):', 'bns-smf' ); ?></label>
 			<input id="<?php echo $this->get_field_id( 'title' ); ?>"
-				   name="<?php echo $this->get_field_name( 'title' ); ?>"
-				   value="<?php echo $instance['title']; ?>"
-				   style="width:100%;" />
+			       name="<?php echo $this->get_field_name( 'title' ); ?>"
+			       value="<?php echo $instance['title']; ?>"
+			       style="width:100%;" />
 		</p>
 
 		<p>
 			<label
 				for="<?php echo $this->get_field_id( 'smf_forum_url' ); ?>"><?php _e( 'SMF Forum URL (e.g. http://www.simplemachines.org/community/):', 'bns-smf' ); ?></label>
 			<input id="<?php echo $this->get_field_id( 'smf_forum_url' ); ?>"
-				   name="<?php echo $this->get_field_name( 'smf_forum_url' ); ?>"
-				   value="<?php echo $instance['smf_forum_url']; ?>"
-				   style="width:100%;" />
+			       name="<?php echo $this->get_field_name( 'smf_forum_url' ); ?>"
+			       value="<?php echo $instance['smf_forum_url']; ?>"
+			       style="width:100%;" />
 		</p>
 
 		<p>
 			<label
 				for="<?php echo $this->get_field_id( 'smf_feed_type' ); ?>"><?php _e( 'Feed Type:', 'bns-smf' ); ?></label>
 			<select id="<?php echo $this->get_field_id( 'smf_feed_type' ); ?>"
-					name="<?php echo $this->get_field_name( 'smf_feed_type' ); ?>"
-					class="widefat" style="width:100%;">
+			        name="<?php echo $this->get_field_name( 'smf_feed_type' ); ?>"
+			        class="widefat" style="width:100%;">
 				<option value="rss" <?php selected( 'rss', $instance['smf_feed_type'], true ); ?>>
 					<?php _e( 'RSS', 'bns-smf' ); ?>
 				</option>
@@ -357,9 +351,9 @@ class BNS_SMF_Feeds_Widget extends WP_Widget {
 
 		<p>
 			<input class="checkbox"
-				   type="checkbox" <?php checked( ( bool ) $instance['smf_sub_action'], true ); ?>
-				   id="<?php echo $this->get_field_id( 'smf_sub_action' ); ?>"
-				   name="<?php echo $this->get_field_name( 'smf_sub_action' ); ?>" />
+			       type="checkbox" <?php checked( ( bool ) $instance['smf_sub_action'], true ); ?>
+			       id="<?php echo $this->get_field_id( 'smf_sub_action' ); ?>"
+			       name="<?php echo $this->get_field_name( 'smf_sub_action' ); ?>" />
 			<label
 				for="<?php echo $this->get_field_id( 'smf_sub_action' ); ?>"><?php _e( 'Display Recent Posts (default is Topics)?', 'bns-smf' ); ?></label>
 		</p>
@@ -368,27 +362,27 @@ class BNS_SMF_Feeds_Widget extends WP_Widget {
 			<label
 				for="<?php echo $this->get_field_id( 'smf_boards' ); ?>"><?php _e( 'Specify Boards separated by commas by ID (default is ALL):', 'bns-smf' ); ?></label>
 			<input id="<?php echo $this->get_field_id( 'smf_boards' ); ?>"
-				   name="<?php echo $this->get_field_name( 'smf_boards' ); ?>"
-				   value="<?php echo $instance['smf_boards']; ?>"
-				   style="width:100%;" />
+			       name="<?php echo $this->get_field_name( 'smf_boards' ); ?>"
+			       value="<?php echo $instance['smf_boards']; ?>"
+			       style="width:100%;" />
 		</p>
 
 		<p>
 			<label
 				for="<?php echo $this->get_field_id( 'smf_categories' ); ?>"><?php _e( 'Specify Categories separated by commas by ID (default is ALL):', 'bns-smf' ); ?></label>
 			<input id="<?php echo $this->get_field_id( 'smf_categories' ); ?>"
-				   name="<?php echo $this->get_field_name( 'smf_categories' ); ?>"
-				   value="<?php echo $instance['smf_categories']; ?>"
-				   style="width:100%;" />
+			       name="<?php echo $this->get_field_name( 'smf_categories' ); ?>"
+			       value="<?php echo $instance['smf_categories']; ?>"
+			       style="width:100%;" />
 		</p>
 
 		<p>
 			<label
 				for="<?php echo $this->get_field_id( 'limit_count' ); ?>"><?php _e( 'Maximum items to display (affected by SMF permissions):', 'bns-smf' ); ?></label>
 			<input id="<?php echo $this->get_field_id( 'limit_count' ); ?>"
-				   name="<?php echo $this->get_field_name( 'limit_count' ); ?>"
-				   value="<?php echo $instance['limit_count']; ?>"
-				   style="width:100%;" />
+			       name="<?php echo $this->get_field_name( 'limit_count' ); ?>"
+			       value="<?php echo $instance['limit_count']; ?>"
+			       style="width:100%;" />
 		</p>
 
 		<table width="100%">
@@ -396,9 +390,9 @@ class BNS_SMF_Feeds_Widget extends WP_Widget {
 				<td>
 					<p>
 						<input class="checkbox"
-							   type="checkbox" <?php checked( ( bool ) $instance['show_date'], true ); ?>
-							   id="<?php echo $this->get_field_id( 'show_date' ); ?>"
-							   name="<?php echo $this->get_field_name( 'show_date' ); ?>" />
+						       type="checkbox" <?php checked( ( bool ) $instance['show_date'], true ); ?>
+						       id="<?php echo $this->get_field_id( 'show_date' ); ?>"
+						       name="<?php echo $this->get_field_name( 'show_date' ); ?>" />
 						<label
 							for="<?php echo $this->get_field_id( 'show_date' ); ?>"><?php _e( 'Display item date?', 'bns-smf' ); ?></label>
 					</p>
@@ -406,9 +400,9 @@ class BNS_SMF_Feeds_Widget extends WP_Widget {
 				<td>
 					<p>
 						<input class="checkbox"
-							   type="checkbox" <?php checked( ( bool ) $instance['show_summary'], true ); ?>
-							   id="<?php echo $this->get_field_id( 'show_summary' ); ?>"
-							   name="<?php echo $this->get_field_name( 'show_summary' ); ?>" />
+						       type="checkbox" <?php checked( ( bool ) $instance['show_summary'], true ); ?>
+						       id="<?php echo $this->get_field_id( 'show_summary' ); ?>"
+						       name="<?php echo $this->get_field_name( 'show_summary' ); ?>" />
 						<label
 							for="<?php echo $this->get_field_id( 'show_summary' ); ?>"><?php _e( 'Show item summary?', 'bns-smf' ); ?></label>
 					</p>
@@ -418,9 +412,9 @@ class BNS_SMF_Feeds_Widget extends WP_Widget {
 				<td>
 					<p>
 						<input class="checkbox"
-							   type="checkbox" <?php checked( ( bool ) $instance['blank_window'], true ); ?>
-							   id="<?php echo $this->get_field_id( 'blank_window' ); ?>"
-							   name="<?php echo $this->get_field_name( 'blank_window' ); ?>" />
+						       type="checkbox" <?php checked( ( bool ) $instance['blank_window'], true ); ?>
+						       id="<?php echo $this->get_field_id( 'blank_window' ); ?>"
+						       name="<?php echo $this->get_field_name( 'blank_window' ); ?>" />
 						<label
 							for="<?php echo $this->get_field_id( 'blank_window' ); ?>"><?php _e( 'Open in new window?', 'bns-smf' ); ?></label>
 					</p>
@@ -432,9 +426,9 @@ class BNS_SMF_Feeds_Widget extends WP_Widget {
 			<label
 				for="<?php echo $this->get_field_id( 'feed_refresh' ); ?>"><?php _e( 'Feed Refresh frequency (in seconds):', 'bns-smf' ); ?></label>
 			<input id="<?php echo $this->get_field_id( 'feed_refresh' ); ?>"
-				   name="<?php echo $this->get_field_name( 'feed_refresh' ); ?>"
-				   value="<?php echo $instance['feed_refresh']; ?>"
-				   style="width:100%;" />
+			       name="<?php echo $this->get_field_name( 'feed_refresh' ); ?>"
+			       value="<?php echo $instance['feed_refresh']; ?>"
+			       style="width:100%;" />
 		</p>
 
 	<?php
