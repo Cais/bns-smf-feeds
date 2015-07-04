@@ -3,7 +3,7 @@
 Plugin Name: BNS SMF Feeds
 Plugin URI: http://buynowshop.com/plugins/bns-smf-feeds/
 Description: Plugin with multi-widget functionality that builds an SMF Forum RSS feed url by user option choices; and, displays a SMF forum feed.
-Version: 2.0
+Version: 2.1
 Text Domain: bns-smf
 Author: Edward Caissie
 Author URI: http://edwardcaissie.com/
@@ -20,10 +20,10 @@ License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  * @package     BNS_SMF_Feeds
  * @link        http://buynowshop.com/plugins/bns-smf-feeds/
  * @link        https://github.com/Cais/bns-smf-feeds/
- * @link        http://wordpress.org/extend/plugins/bns-smf-feeds/
- * @version     2.0
+ * @link        https://wordpress.org/extend/plugins/bns-smf-feeds/
+ * @version     2.1
  * @author      Edward Caissie <edward.caissie@gmail.com>
- * @copyright   Copyright (c) 2009-2014, Edward Caissie
+ * @copyright   Copyright (c) 2009-2015, Edward Caissie
  *
  * This program is free software; you can redistribute it and/or modify it under
  * the terms of the GNU General Public License version 2, as published by the
@@ -44,6 +44,10 @@ License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  *
  * The license for this software can also likely be found here:
  * http://www.gnu.org/licenses/gpl-2.0.html
+ *
+ * @date    July 2015
+ *
+ * @todo - Needs lots of review before next release ...
  */
 class BNS_SMF_Feeds_Widget extends WP_Widget {
 
@@ -111,7 +115,7 @@ class BNS_SMF_Feeds_Widget extends WP_Widget {
 		$control_ops = array( 'width' => 200, 'id_base' => 'bns-smf-feeds' );
 
 		/** Create the widget */
-		$this->WP_Widget( 'bns-smf-feeds', 'BNS SMF Feeds', $widget_ops, $control_ops );
+		parent::__construct( 'bns-smf-feeds', 'BNS SMF Feeds', $widget_ops, $control_ops );
 
 		/** Add Widget */
 		add_action(
