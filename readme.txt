@@ -3,7 +3,7 @@ Contributors: cais
 Donate link: http://buynowshop.com
 Tags: RSS, SMF, Multiple Widgets, Option Panel
 Requires at least: 3.6
-Tested up to: 4.2.2
+Tested up to: 4.3
 Stable tag: 2.1
 
 Plugin with multi-widget functionality that builds an SMF Forum RSS feed url by user option choices; and, displays a SMF forum feed.
@@ -115,7 +115,7 @@ Please stay current with your WordPress installation, your active theme, and you
 
 == Changelog ==
 = 2.1 =
-* Released ...
+* Released August 2015
 * Updated to use PHP5 constructor objects
 
 = 2.0 =
